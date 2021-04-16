@@ -19,7 +19,12 @@ def index():
 
 
 @app.route('/name/<nm>')
-def hello_name(nm):
+def name(nm):
+    return render_template('name.html', name=nm)
+
+
+@app.route('/<type>/<nm>')
+def headlines(type, nm):
     url = "https://api.nytimes.com/svc/topstories/v2/technology.json?api-key={}".format(
         secrets.api_key)
     headlines = requests.get(url).json()
@@ -28,7 +33,8 @@ def hello_name(nm):
         h = headlines['results'][i]
         tmp = Headline(h['title'], h['url'], h['multimedia'][1]["url"])
         headline_obj_ls.append(tmp)
-    return render_template('name.html', name=nm, headlines=headline_obj_ls)
+    template_name = type + '.html'
+    return render_template(template_name, name=nm, headlines=headline_obj_ls)
 
 
 if __name__ == '__main__':

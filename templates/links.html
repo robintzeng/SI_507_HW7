@@ -1,0 +1,15 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+
+<h1> Hello, {{name}}! </h1>
+<h3> Today's techonology headlines are ...</h3>
+<ol>  
+{% for head in headlines %}
+
+<li><a href={{head.url|e}}>{{head.topic|e}} </a></li>
+
+{%endfor%}
+</ol>
